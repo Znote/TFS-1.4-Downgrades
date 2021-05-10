@@ -818,7 +818,7 @@ bool IOLoginData::savePlayer(Player* player)
 
 	if (player->lastDepotId != -1) {
 		//save depot lockers
-		query.str(std::string());
+		/*query.str(std::string());
 		query << "DELETE FROM `player_depotlockeritems` WHERE `player_id` = " << player->getGUID();
 
 		if (!db.executeQuery(query.str())) {
@@ -839,7 +839,7 @@ bool IOLoginData::savePlayer(Player* player)
 
 		if (!saveItems(player, itemList, lockerQuery, propWriteStream)) {
 			return false;
-		}
+		}*/
 
 		//save depot items
 		query.str(std::string());
@@ -853,7 +853,8 @@ bool IOLoginData::savePlayer(Player* player)
 		itemList.clear();
 
 		for (const auto& it : player->depotChests) {
-			for (Item* item : it.second->getItemList()) {
+			DepotChest* depotChest = it.second;
+			for (Item* item : depotChest->getItemList()) {
 				itemList.emplace_back(it.first, item);
 			}
 		}

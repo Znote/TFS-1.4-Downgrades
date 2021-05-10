@@ -742,29 +742,32 @@ DepotChest* Player::getDepotChest(uint32_t depotId, bool autoCreate)
 {
 	auto it = depotChests.find(depotId);
 	if (it != depotChests.end()) {
-		return it->second.get();
+		return it->second;
 	}
 
 	if (!autoCreate) {
 		return nullptr;
 	}
 
-	it = depotChests.emplace(depotId, new DepotChest(ITEM_DEPOT)).first;
-	it->second->setMaxDepotItems(getMaxDepotItems());
-	return it->second.get();
+	DepotChest* depotChest = new DepotChest(ITEM_DEPOT);
+	depotChest->incrementReferenceCounter();
+	depotChest->setMaxDepotItems(getMaxDepotItems());
+	depotChests[depotId] = depotChest;
+	return depotChest;
 }
 
 DepotLocker* Player::getDepotLocker(uint32_t depotId)
 {
 	auto it = depotLockerMap.find(depotId);
 	if (it != depotLockerMap.end()) {
-		return it->second.get();
+		return it->second;
 	}
 
-	it = depotLockerMap.emplace(depotId, new DepotLocker(ITEM_LOCKER)).first;
-	it->second->setDepotId(depotId);
-	it->second->internalAddThing(getDepotChest(depotId, true));
-	return it->second.get();
+	DepotLocker* depotLocker = new DepotLocker(ITEM_LOCKER);
+	depotLocker->setDepotId(depotId);
+	depotLocker->internalAddThing(getDepotChest(depotId, true));
+	depotLockerMap[depotId] = depotLocker; // ???
+	return depotLocker;
 }
 
 void Player::sendCancelMessage(ReturnValue message) const
@@ -2915,7 +2918,7 @@ void Player::postRemoveNotification(Thing* thing, const Cylinder* newParent, int
 					bool isOwner = false;
 
 					for (const auto& it : depotChests) {
-						if (it.second.get() == depotChest) {
+						if (it.second == depotChest) {
 							isOwner = true;
 							onSendContainer(container);
 						}
