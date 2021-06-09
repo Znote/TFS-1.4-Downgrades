@@ -375,6 +375,9 @@ bool Party::canUseSharedExperience(const Player* player) const
 		return false;
 	}
 
+	
+
+	/*// Acidsot: Disabled!
 	uint32_t highestLevel = leader->getLevel();
 	for (Player* member : memberList) {
 		if (member->getLevel() > highestLevel) {
@@ -386,11 +389,13 @@ bool Party::canUseSharedExperience(const Player* player) const
 	if (player->getLevel() < minLevel) {
 		return false;
 	}
+	*/
 
-	if (!Position::areInRange<30, 30, 1>(leader->getPosition(), player->getPosition())) {
+	if (!Position::areInRange<40, 40, 1>(leader->getPosition(), player->getPosition())) {
 		return false;
 	}
 
+	/*// Acidsot: Disabled!
 	if (!player->hasFlag(PlayerFlag_NotGainInFight)) {
 		//check if the player has healed/attacked anything recently
 		auto it = ticksMap.find(player->getID());
@@ -403,6 +408,8 @@ bool Party::canUseSharedExperience(const Player* player) const
 			return false;
 		}
 	}
+	*/
+	
 	return true;
 }
 
