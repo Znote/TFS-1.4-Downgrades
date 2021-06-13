@@ -1125,6 +1125,10 @@ void Creature::onGainExperience(uint64_t gainExp, Creature* target)
 		return;
 	}
 
+	if (this->getMonster() || master->getMonster()) { // Disable exp share to summons
+		return;
+	}
+
 	TextMessage textMessage(MESSAGE_STATUS_DEFAULT, fmt::format("{:s} gained {:d} {:s}.", ucfirst(getNameDescription()), gainExp, gainExp != 1 ? " experience points" : " experience point"));
 	for (Creature* spectator : spectators) {
 		spectator->getPlayer()->sendTextMessage(textMessage);
