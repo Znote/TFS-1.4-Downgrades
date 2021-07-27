@@ -1008,6 +1008,7 @@ class Player final : public Creature, public Cylinder
 		void learnInstantSpell(const std::string& spellName);
 		void forgetInstantSpell(const std::string& spellName);
 		bool hasLearnedInstantSpell(const std::string& spellName) const;
+		int32_t idleTime = 0;
 
 	private:
 		std::forward_list<Condition*> getMuteConditions() const;
@@ -1139,7 +1140,6 @@ class Player final : public Creature, public Cylinder
 		int32_t MessageBufferCount = 0;
 		int32_t bloodHitCount = 0;
 		int32_t shieldBlockCount = 0;
-		int32_t idleTime = 0;
 
 		uint16_t staminaMinutes = 2520;
 		uint16_t maxWriteLen = 0;
