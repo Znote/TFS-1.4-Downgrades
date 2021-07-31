@@ -8,7 +8,7 @@ You are welcome to submit a pull request though.
 
 If you are looking for other protocols, switch the branch at the top.
 
-This downgrade is up to June 4th, 2021, commit: https://github.com/otland/forgottenserver/commit/ace6ff683488d60722904731131ed7cfb20abd82
+This downgrade is up to Jul 31, 2021, commit: https://github.com/otland/forgottenserver/commit/55d54d4346707b919f9aa9df5a3bdb6f9de1b48c
 
 ## How to compile
 [Wiki](https://github.com/otland/forgottenserver/wiki/Compiling)
@@ -25,11 +25,4 @@ If you find any bug and believe it should be fixed, submit an issue in issues se
 * https://github.com/otland/forgottenserver
 
 ## Donate
-If you like my work and respect my time, you can consider sending me a small tip, very appreciated! Thanks!
-
-[![](https://i2.wp.com/dk-plugins.ru/wp-content/uploads/2017/06/donate-paypal-main.png)](https://www.nekiro.dev/donate)
-![](https://i.imgur.com/R09srNR.png)
-
-BTC: 1P7fUUzpUdKxDGectSZvMVvtAK1Mb3bnaV
-
-ETH: 0x9C2Db127A591Ca04970C132d775735Ab1737092D
+If you like my work and respect my time, you can consider becoming github sponsor, very appreciated! Thanks!
