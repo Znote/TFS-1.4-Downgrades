@@ -189,17 +189,10 @@ struct Abilities {
 	int32_t speed = 0;
 
 	// field damage abilities modifiers
-<<<<<<< HEAD
-	std::array<int16_t, COMBAT_COUNT> fieldAbsorbPercent;
-
-	//damage abilities modifiers
-	std::array<int16_t, COMBAT_COUNT> absorbPercent;
-=======
 	std::array<int16_t, COMBAT_COUNT> fieldAbsorbPercent = {0};
 
 	//damage abilities modifiers
 	std::array<int16_t, COMBAT_COUNT> absorbPercent = {0};
->>>>>>> 8.60
 
 	//elemental damage
 	uint16_t elementDamage = 0;
