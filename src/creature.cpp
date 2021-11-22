@@ -614,8 +614,13 @@ void Creature::onCreatureMove(Creature* creature, const Tile* newTile, const Pos
 		}
 	}
 
+	// https://github.com/otland/forgottenserver/issues/1650#issuecomment-924227867
 	if (creature == followCreature || (creature == this && followCreature)) {
 		if (hasFollowPath) {
+			//isUpdatingPath = true;
+			if (getWalkDelay() <= 0) {
+				g_dispatcher.addTask(createTask(std::bind(&Game::updateCreatureWalk, &g_game, getID())));
+			}
 			isUpdatingPath = true;
 		}
 
