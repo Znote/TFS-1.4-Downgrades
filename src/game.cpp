@@ -4483,6 +4483,42 @@ void Game::saveMotdNum() const
 
 void Game::checkPlayersRecord()
 {
+	// First ensure that we are anywhere near a new record
+	if (getPlayersOnline() > playersRecord) {
+
+		// Then get more accurate numbers (strip off mc farms etc in otservlist compliance)
+		uint32_t realNow = 0;
+		std::map<uint32_t, uint32_t> listIP;
+		for (const auto& it : g_game.getPlayers()) {
+			if (it.second->idleTime < 960000 && it.second->getIP() != 0) {
+				auto ip = listIP.find(it.second->getIP());
+				if (ip != listIP.end()) {
+					listIP[it.second->getIP()]++;
+					if (listIP[it.second->getIP()] < 5) {
+						realNow++;
+					}
+				}
+				else {
+					listIP[it.second->getIP()] = 1;
+					realNow++;
+				}
+			}
+		}
+
+		// If its still a new record, then proceed to broadcast and update database
+		if (realNow > playersRecord) {
+			uint32_t previousRecord = playersRecord;
+			playersRecord = realNow;
+
+			for (auto& it : g_globalEvents->getEventMap(GLOBALEVENT_RECORD)) {
+				it.second.executeRecord(playersRecord, previousRecord);
+			}
+			updatePlayersRecord();
+		}	
+	}
+}
+/*void Game::checkPlayersRecord()
+{
 	const size_t playersOnline = getPlayersOnline();
 	if (playersOnline > playersRecord) {
 		uint32_t previousRecord = playersRecord;
@@ -4493,7 +4529,7 @@ void Game::checkPlayersRecord()
 		}
 		updatePlayersRecord();
 	}
-}
+}*/
 
 void Game::updatePlayersRecord() const
 {
