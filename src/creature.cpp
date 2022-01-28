@@ -499,6 +499,7 @@ void Creature::onCreatureMove(Creature* creature, const Tile* newTile, const Pos
 			stopEventWalk();
 		}
 
+		/* AcidsOT: Dont remove creatures if they are too far away from master. (dont want summons to dissapear when entering teleports)
 		if (!summons.empty()) {
 			//check if any of our summons is out of range (+/- 2 floors or 30 tiles away)
 			std::forward_list<Creature*> despawnList;
@@ -513,6 +514,7 @@ void Creature::onCreatureMove(Creature* creature, const Tile* newTile, const Pos
 				g_game.removeCreature(despawnCreature, true);
 			}
 		}
+		*/
 
 		if (newTile->getZone() != oldTile->getZone()) {
 			onChangeZone(getZone());
